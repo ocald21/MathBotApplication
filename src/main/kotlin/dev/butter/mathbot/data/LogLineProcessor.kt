@@ -27,13 +27,21 @@ object LogLineProcessor {
         private set
 
     fun processStart(lines: List<String>) {
-        val trimmedLines = lines.trimLines()
+        val trimmedLines = lines.trimLines().reversed()
         val iterator = trimmedLines.iterator()
 
         while (iterator.hasNext()) {
             val next = iterator.next()
 
-            if (next.contains(PORTAL_PLACEMENT) && state != IN_DUNGEON) {
+            if (iterator.scan(next, OBJECTIVE_NOT_CLEARED, DUNGEON_END, 0) ||
+                iterator.scan(next, NUL_DUNGEON_CLEARED, DUNGEON_FINISHED, 0)
+            ) {
+                return
+            }
+
+            if (next.contains(PORTAL_PLACEMENT) &&
+                state != IN_DUNGEON
+            ) {
                 run { iterator.next() }
 
                 val twoLineAfter = iterator.next()
@@ -140,6 +148,28 @@ object LogLineProcessor {
                 }
             }
         }
+    }
+
+    private fun Iterator<String>.scan(
+        next: String,
+        firstFlag: String,
+        secondFlag: String,
+        distance: Int,
+        condition: Boolean = true
+    ): Boolean {
+        if (next.contains(firstFlag) && condition) {
+            repeat(distance - 1) { this.next() }
+
+            val nextLine = this.next()
+
+            if (nextLine.contains(secondFlag)) {
+                state = NOT_STARTED
+                accounts = 0
+                return true
+            }
+        }
+
+        return false
     }
 
     private fun List<String>.trimLines() = map { it.replace(LINE_TRIM_REGEX, "") }

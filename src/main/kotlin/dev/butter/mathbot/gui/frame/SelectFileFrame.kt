@@ -2,14 +2,18 @@ package dev.butter.mathbot.gui.frame
 
 import dev.butter.mathbot.config
 import dev.butter.mathbot.gui.label.FilePathDisplay
+import dev.butter.mathbot.module.Addon
+import javax.inject.Inject
 import javax.swing.JFileChooser
 import javax.swing.JFileChooser.*
 import javax.swing.JFrame
 
-class SelectFileFrame(
-    filePathDisplay: FilePathDisplay,
-) : JFrame() {
-    init {
+class SelectFileFrame
+@Inject
+constructor(
+    private val filePathDisplay: FilePathDisplay,
+) : JFrame(), Addon {
+    override fun init() {
         val jFileChooser = JFileChooser()
             .apply { fileSelectionMode = DIRECTORIES_ONLY }
         val result = jFileChooser.showOpenDialog(this)

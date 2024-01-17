@@ -28,7 +28,7 @@ class FileTracker : Runnable, Addon {
 
             newReader()
 
-//            LogLineProcessor.processStart(initialLines)
+            LogLineProcessor.processStart(initialLines)
 
             return updateLatestLine()
         }

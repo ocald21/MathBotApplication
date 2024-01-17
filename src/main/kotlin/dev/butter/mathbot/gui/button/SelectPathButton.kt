@@ -5,6 +5,7 @@ import dev.butter.mathbot.gui.frame.SelectFileFrame
 import dev.butter.mathbot.gui.label.FilePathDisplay
 import dev.butter.mathbot.gui.panel.DISTANCE_FROM_TOP
 import dev.butter.mathbot.listener.ButtonMouseListener
+import dev.butter.mathbot.module.Addon
 import java.awt.Color
 import java.awt.Font
 import javax.inject.Inject
@@ -18,11 +19,12 @@ class SelectPathButton
 @Inject
 constructor(
     private val filePathDisplay: FilePathDisplay,
-) : JButton() {
+    private val buttonMouseListener: ButtonMouseListener,
+) : JButton(), Addon {
     private val defaultBackground: Color = Color.cyan
     private val hoveredBackground: Color = Color.green
 
-    init {
+    override fun init() {
         setLocation(SELECT_PATH_BUTTON_POSITION_X, DISTANCE_FROM_TOP)
         setSize(SELECT_PATH_BUTTON_WIDTH, SELECT_PATH_BUTTON_HEIGHT)
         isFocusPainted = false
@@ -34,12 +36,6 @@ constructor(
         addActionListener { _ ->
             SelectFileFrame(filePathDisplay)
         }
-        addMouseListener(
-            ButtonMouseListener(
-                this,
-                defaultBackground,
-                hoveredBackground,
-            )
-        )
+        addMouseListener(buttonMouseListener)
     }
 }

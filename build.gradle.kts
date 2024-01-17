@@ -41,6 +41,10 @@ tasks.build {
 }
 
 tasks.shadowJar {
+    relocate("net.objecthunter", "dev.butter.mathbot.lib.objecthunter")
+    relocate("com.google.inject", "dev.butter.mathbot.lib.google.inject")
+    relocate("com.authzee.kotlinguice4", "dev.butter.mathbot.lib.authzee.kotlinguice4")
+
     archiveFileName.set("MathBot.jar")
     destinationDirectory.set(File("C:/Users/omarc/Desktop"))
 }

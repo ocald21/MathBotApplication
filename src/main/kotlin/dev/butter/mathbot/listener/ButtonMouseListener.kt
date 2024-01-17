@@ -1,15 +1,22 @@
 package dev.butter.mathbot.listener
 
+import dev.butter.mathbot.gui.button.SelectPathButton
+import dev.butter.mathbot.module.Addon
 import java.awt.Color
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
-import javax.swing.JButton
+import javax.inject.Inject
 
-class ButtonMouseListener(
-    private val button: JButton,
-    private val defaultBackground: Color,
-    private val hoveredBackground: Color,
-) : MouseListener {
+class ButtonMouseListener
+@Inject
+constructor(
+    private val button: SelectPathButton,
+) : MouseListener, Addon {
+    private val defaultBackground: Color = Color.cyan
+    private val hoveredBackground: Color = Color.green
+
+    override fun init() = Unit
+
     override fun mouseClicked(e: MouseEvent) = Unit
 
     override fun mousePressed(e: MouseEvent) = Unit
