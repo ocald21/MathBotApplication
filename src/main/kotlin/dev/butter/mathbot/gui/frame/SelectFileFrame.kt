@@ -14,7 +14,7 @@ constructor(
     private val filePathDisplay: FilePathDisplay,
 ) : JFrame(), Addon {
     override fun init() {
-        val jFileChooser = JFileChooser()
+        val jFileChooser = JFileChooser(config.data.logFilePath)
             .apply { fileSelectionMode = DIRECTORIES_ONLY }
         val result = jFileChooser.showOpenDialog(this)
 

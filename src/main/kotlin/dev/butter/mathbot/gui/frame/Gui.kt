@@ -6,6 +6,7 @@ import dev.butter.mathbot.listener.ExitListener
 import dev.butter.mathbot.module.Addon
 import java.awt.Color
 import javax.inject.Inject
+import javax.inject.Singleton
 import javax.swing.JFrame
 
 const val GUI_WIDTH = 1000
@@ -14,6 +15,7 @@ const val FILE_PANEL_HEIGHT = 100
 const val CONSOLE_PANEL_HEIGHT = GUI_HEIGHT - FILE_PANEL_HEIGHT
 val PANEL_BACKGROUND = Color(26, 26, 26)
 
+@Singleton
 class Gui
 @Inject
 constructor(

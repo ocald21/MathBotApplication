@@ -6,6 +6,7 @@ import dev.butter.mathbot.gui.panel.DISTANCE_FROM_TOP
 import dev.butter.mathbot.module.Addon
 import java.awt.Color
 import java.awt.Font
+import javax.inject.Singleton
 import javax.swing.JLabel
 import javax.swing.border.LineBorder
 
@@ -13,6 +14,7 @@ const val FILE_PATH_POSITION_X = PATH_LABEL_POSITION_X + PATH_LABEL_WIDTH
 const val FILE_PATH_WIDTH = SELECT_PATH_BUTTON_POSITION_X - FILE_PATH_POSITION_X
 val FILE_PATH_FONT_COLOR: Color = Color(185, 91, 245)
 
+@Singleton
 class FilePathDisplay : JLabel("", CENTER), Addon {
     override fun init() {
         setLocation(FILE_PATH_POSITION_X, DISTANCE_FROM_TOP)

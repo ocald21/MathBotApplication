@@ -7,9 +7,16 @@ import dev.butter.mathbot.data.LogLineProcessor
 import dev.butter.mathbot.module.Addon
 import java.io.BufferedReader
 import java.io.File
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.properties.Delegates
 
-class FileTracker : Runnable, Addon {
+@Singleton
+class FileTracker
+@Inject
+constructor(
+    private val logLineProcessor: LogLineProcessor,
+) : Runnable, Addon {
     private lateinit var file: File
     private lateinit var reader: BufferedReader
     private var latestLine by Delegates.notNull<Int>()
@@ -28,7 +35,7 @@ class FileTracker : Runnable, Addon {
 
             newReader()
 
-            LogLineProcessor.processStart(initialLines)
+            logLineProcessor.processStart(initialLines)
 
             return updateLatestLine()
         }
@@ -41,7 +48,7 @@ class FileTracker : Runnable, Addon {
 
         val newLines = reader.readLines().drop(latestLine)
 
-        LogLineProcessor.processNew(newLines)
+        logLineProcessor.processNew(newLines)
 
         newReader()
 

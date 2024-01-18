@@ -7,7 +7,9 @@ import dev.butter.mathbot.file.save
 import dev.butter.mathbot.module.Addon
 import java.awt.event.WindowEvent
 import java.awt.event.WindowListener
+import javax.inject.Singleton
 
+@Singleton
 class ExitListener : WindowListener, Addon {
     override fun init() = Unit
     override fun windowOpened(e: WindowEvent) = Unit

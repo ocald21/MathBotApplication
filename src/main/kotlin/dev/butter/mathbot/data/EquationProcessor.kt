@@ -1,11 +1,16 @@
 package dev.butter.mathbot.data
 
+import dev.butter.mathbot.module.Addon
 import net.objecthunter.exp4j.Expression
 import net.objecthunter.exp4j.ExpressionBuilder
 import java.awt.Toolkit
 import java.awt.datatransfer.StringSelection
+import javax.inject.Singleton
 
-object EquationProcessor {
+@Singleton
+class EquationProcessor : Addon {
+    override fun init() = Unit
+
     val equations: MutableList<String> = mutableListOf()
 
     fun evaluate() {

@@ -6,6 +6,7 @@ import dev.butter.mathbot.file.ConfigFile
 import dev.butter.mathbot.file.FileTracker
 import dev.butter.mathbot.file.UserData
 import dev.butter.mathbot.file.load
+import dev.butter.mathbot.module.AddonLoader
 import dev.butter.mathbot.module.InjectorModule
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -26,6 +27,9 @@ suspend fun main(): Unit = coroutineScope {
         val tracker = injector
             .getInstance<FileTracker>()
             .apply(FileTracker::run)
+        val addonLoader = injector
+            .getInstance<AddonLoader>()
+            .apply(AddonLoader::init)
 
         applicationState = RUNNING
 

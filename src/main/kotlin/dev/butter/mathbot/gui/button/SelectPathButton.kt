@@ -1,5 +1,7 @@
 package dev.butter.mathbot.gui.button
 
+import com.authzee.kotlinguice4.getInstance
+import com.google.inject.Injector
 import dev.butter.mathbot.gui.frame.GUI_WIDTH
 import dev.butter.mathbot.gui.frame.SelectFileFrame
 import dev.butter.mathbot.gui.label.FilePathDisplay
@@ -9,17 +11,19 @@ import dev.butter.mathbot.module.Addon
 import java.awt.Color
 import java.awt.Font
 import javax.inject.Inject
+import javax.inject.Singleton
 import javax.swing.JButton
 
 const val SELECT_PATH_BUTTON_WIDTH = 100
 const val SELECT_PATH_BUTTON_HEIGHT = 50
 const val SELECT_PATH_BUTTON_POSITION_X = GUI_WIDTH - SELECT_PATH_BUTTON_WIDTH - 50
 
+@Singleton
 class SelectPathButton
 @Inject
 constructor(
     private val filePathDisplay: FilePathDisplay,
-    private val buttonMouseListener: ButtonMouseListener,
+    private val injector: Injector,
 ) : JButton(), Addon {
     private val defaultBackground: Color = Color.cyan
     private val hoveredBackground: Color = Color.green
@@ -34,8 +38,9 @@ constructor(
         background = defaultBackground
         font = Font(Font.MONOSPACED, Font.BOLD, 20)
         addActionListener { _ ->
-            SelectFileFrame(filePathDisplay)
+            println("Selecting file...")
+            SelectFileFrame(filePathDisplay).init()
         }
-        addMouseListener(buttonMouseListener)
+        addMouseListener(injector.getInstance<ButtonMouseListener>())
     }
 }

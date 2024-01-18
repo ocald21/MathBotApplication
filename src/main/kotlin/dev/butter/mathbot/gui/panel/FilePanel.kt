@@ -8,10 +8,12 @@ import dev.butter.mathbot.gui.label.FilePathDisplay
 import dev.butter.mathbot.gui.label.PathLabel
 import dev.butter.mathbot.module.Addon
 import javax.inject.Inject
+import javax.inject.Singleton
 import javax.swing.JPanel
 
 const val DISTANCE_FROM_TOP = 25
 
+@Singleton
 class FilePanel
 @Inject
 constructor(
